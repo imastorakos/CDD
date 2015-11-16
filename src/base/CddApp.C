@@ -1,10 +1,10 @@
-#include "StorkApp.h"
+#include "CddApp.h"
 #include "Moose.h"
 #include "AppFactory.h"
 #include "ModulesApp.h"
 
 template<>
-InputParameters validParams<StorkApp>()
+InputParameters validParams<CddApp>()
 {
   InputParameters params = validParams<MooseApp>();
 
@@ -15,40 +15,40 @@ InputParameters validParams<StorkApp>()
   return params;
 }
 
-StorkApp::StorkApp(InputParameters parameters) :
+CddApp::CddApp(InputParameters parameters) :
     MooseApp(parameters)
 {
   Moose::registerObjects(_factory);
   ModulesApp::registerObjects(_factory);
-  StorkApp::registerObjects(_factory);
+  CddApp::registerObjects(_factory);
 
   Moose::associateSyntax(_syntax, _action_factory);
   ModulesApp::associateSyntax(_syntax, _action_factory);
-  StorkApp::associateSyntax(_syntax, _action_factory);
+  CddApp::associateSyntax(_syntax, _action_factory);
 }
 
-StorkApp::~StorkApp()
+CddApp::~CddApp()
 {
 }
 
 // External entry point for dynamic application loading
-extern "C" void StorkApp__registerApps() { StorkApp::registerApps(); }
+extern "C" void CddApp__registerApps() { CddApp::registerApps(); }
 void
-StorkApp::registerApps()
+CddApp::registerApps()
 {
-  registerApp(StorkApp);
+  registerApp(CddApp);
 }
 
 // External entry point for dynamic object registration
-extern "C" void StorkApp__registerObjects(Factory & factory) { StorkApp::registerObjects(factory); }
+extern "C" void CddApp__registerObjects(Factory & factory) { CddApp::registerObjects(factory); }
 void
-StorkApp::registerObjects(Factory & factory)
+CddApp::registerObjects(Factory & factory)
 {
 }
 
 // External entry point for dynamic syntax association
-extern "C" void StorkApp__associateSyntax(Syntax & syntax, ActionFactory & action_factory) { StorkApp::associateSyntax(syntax, action_factory); }
+extern "C" void CddApp__associateSyntax(Syntax & syntax, ActionFactory & action_factory) { CddApp::associateSyntax(syntax, action_factory); }
 void
-StorkApp::associateSyntax(Syntax & syntax, ActionFactory & action_factory)
+CddApp::associateSyntax(Syntax & syntax, ActionFactory & action_factory)
 {
 }
