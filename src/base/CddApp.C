@@ -1,7 +1,14 @@
 #include "CddApp.h"
 #include "Moose.h"
 #include "AppFactory.h"
-#include "ModulesApp.h"
+#include "Factory.h"
+
+#include "SimpleConvection.h"
+#include "BoundingBoxFuncIC.h"
+#include "ParamReaction.h"
+#include "CoupledReaction.h"
+#include "CoupledReactionP3.h"
+#include "CoupledReactionNoU.h"
 
 template<>
 InputParameters validParams<CddApp>()
@@ -19,11 +26,11 @@ CddApp::CddApp(InputParameters parameters) :
     MooseApp(parameters)
 {
   Moose::registerObjects(_factory);
-  ModulesApp::registerObjects(_factory);
+//  ModulesApp::registerObjects(_factory);
   CddApp::registerObjects(_factory);
 
   Moose::associateSyntax(_syntax, _action_factory);
-  ModulesApp::associateSyntax(_syntax, _action_factory);
+//  ModulesApp::associateSyntax(_syntax, _action_factory);
   CddApp::associateSyntax(_syntax, _action_factory);
 }
 
@@ -44,6 +51,13 @@ extern "C" void CddApp__registerObjects(Factory & factory) { CddApp::registerObj
 void
 CddApp::registerObjects(Factory & factory)
 {
+  // Register any custom objects you have built on the MOOSE Framework
+  registerKernel(SimpleConvection);  // <- registration
+  registerInitialCondition(BoundingBoxFuncIC);
+  registerKernel(ParamReaction);
+  registerKernel(CoupledReaction);
+  registerKernel(CoupledReactionP3);
+  registerKernel(CoupledReactionNoU);
 }
 
 // External entry point for dynamic syntax association
