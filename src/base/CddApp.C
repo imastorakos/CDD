@@ -2,6 +2,7 @@
 #include "Moose.h"
 #include "AppFactory.h"
 #include "Factory.h"
+#include "MooseSyntax.h"
 
 #include "SimpleConvection.h"
 #include "BoundingBoxFuncIC.h"
@@ -63,6 +64,6 @@ CddApp::registerObjects(Factory & factory)
 // External entry point for dynamic syntax association
 extern "C" void CddApp__associateSyntax(Syntax & syntax, ActionFactory & action_factory) { CddApp::associateSyntax(syntax, action_factory); }
 void
-CddApp::associateSyntax(Syntax & syntax, ActionFactory & action_factory)
+CddApp::associateSyntax(Syntax & /*syntax*/, ActionFactory & /*action_factory*/)
 {
 }
